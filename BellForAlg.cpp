@@ -6,43 +6,61 @@
 
 using namespace std;
 
+// Estutura para as arestas.
 struct Edge
 {
     int source, destination, weight;
 };
 
+// Calculo da distância minima entre entre a fonte e o destino
 int minDistance(const vector<int> &dist, const vector<bool> &finalizado, int V)
 {
+    // Inicia o valor mínimo como infinito
     int min = INT_MAX;
+    // Armazena o índice do vértice com menor distância
     int min_index = -1;
 
+    // Percorre todos os vértices do grafo
     for (int v = 0; v < V; v++)
     {
+        // Se o vértice ainda não foi finalizado e tem distância menor ou igual ao mínimo atual
         if (!finalizado[v] && dist[v] <= min)
         {
+            // Atualiza o valor mínimo e o índice correspondente
             min = dist[v];
             min_index = v;
         }
     }
 
+    // Retorna o índice do vértice com a menor distância não finalizado
+    // Retorna -1 se não houver (ou seja, todos foram finalizados)
     return min_index;
 }
 
 vector<int> dijkstra(const vector<vector<int>> &graph, int V, int src)
 {
+    // Vetor de distâncias: começa tudo com "infinito"
     vector<int> dist(V, INT_MAX);
+
+    // Vetor de marcação: true se o vértice já foi finalizado (visitado)
     vector<bool> finalizado(V, false);
 
+    // Distância da fonte até ela mesma é zero
     dist[src] = 0;
 
+    // Loop principal: repete até processar todos os vértices
     for (int count = 0; count < V; count++)
     {
+        // Encontra o vértice u com a menor distância ainda não finalizado
         int u = minDistance(dist, finalizado, V);
+        // Se não existe mais vértice alcançável, encerra o loop
         if (u == -1)
             break;
 
+        // Marca o vértice u como finalizado
         finalizado[u] = true;
 
+        // Atualiza as distâncias dos vértices vizinhos de u
         for (int v = 0; v < V; v++)
         {
             if (!finalizado[v] && graph[u][v] != 0 &&
@@ -50,6 +68,19 @@ vector<int> dijkstra(const vector<vector<int>> &graph, int V, int src)
                 dist[u] + graph[u][v] < dist[v])
             {
                 dist[v] = dist[u] + graph[u][v];
+            }
+            cout << "After iteration " << count + 1 << ": ";
+            for (int i = 0; i < V; ++i)
+            {
+                if (dist[i] == INT_MAX)
+                    cout << "INF";
+                else
+                    cout << dist[i];
+                if (i < V - 1)
+                    cout << " ";
+            }
+            cout << endl;
+            {
             }
         }
     }
