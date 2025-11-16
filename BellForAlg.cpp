@@ -252,11 +252,24 @@ int main()
         {2, 1, -2},
     };
 
+    int verticesDemo = 6;
+    vector<Edge> graphDemo = {
+        {0, 1, 3}, {0, 2, 4}, {2, 1, -2}
+        };
+
     // vector<vector<Edge>> graphs = {graph1, graph2, graph3, graph4};
     // vector<int> vertices = {vertices1, vertices2, vertices3, vertices4};
 
+<<<<<<< HEAD
     vector<vector<Edge>> graphs = {graph4};
     vector<int> vertices = {vertices4};
+=======
+    // vector<vector<Edge>> graphs = {graph1};
+    // vector<int> vertices = {vertices1};
+
+    vector<vector<Edge>> graphs = {graphDemo};
+    vector<int> vertices = {verticesDemo};
+>>>>>>> 5580fe4d55cd33c8491ca0f16ad55dc980e41e1a
 
     test(graphs, vertices);
 
